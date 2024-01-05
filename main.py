@@ -1,5 +1,5 @@
 #LIBRERIA DE FLASK
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for, redirect
 #LIBRERIAS INDISPENSABLE PARA LA CREACION DE LA BASE DE DATOS 
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase    
@@ -36,23 +36,27 @@ def home():
             obj = Todoo(name=name)
             db.session.add(obj)
             db.session.commit()
-            return f'Agregado {name}'
-        Lista_tareas = Todoo.query.all()
-    return render_template('select.html')
+    py_lista_tareas = Todoo.query.all()
+    return render_template('select.html', lista_tareas = py_lista_tareas)
 
-
-
-@app.route("/insert/<id>")
-def insert(id):
-    return f'Hola esto es una prueba de insertar el id {id}'
+@app.route("/insert")
+def insert():
+    return 'Hola esto es una prueba de insertar'
 
 @app.route("/update/<id>")
 def update(id):
-    return f'Hola esto es una prueba de actualizar el id {id}'
+    obj = Todoo.query.filter_by(id=id).first()
+    obj.state = "Completo"
+    db.session.commit()
+    return redirect(url_for('home'))
 
 @app.route("/delete/<id>")
 def delete(id):
-    return f'Hola esto es una prueba de eliminar el id {id}'
-
+    obj = Todoo.query.filter_by(id=id).first()
+    db.session.delete(obj)
+    db.session.commit()
+    return redirect(url_for('home'))
+    
+    
 if __name__ == "__main__":
     app.run()

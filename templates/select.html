@@ -14,8 +14,8 @@
     <br>
     <div class = "container">
         <form method="post">
-            <input type="text">
-            <button type="button" class="btn btn-secondary">Agregar Tarea</button>
+            <input type="text" name="name">
+            <button type="button" class="btn btn-primary">Agregar Tarea</button>
         </form>
     </div>
     <br>
@@ -28,19 +28,21 @@
           <th>ESTADO</th>
           <th>ACCIONES</th>
         </tr>
+        {% for todoo in lista_tareas %}
         <tr>
-          <td>1</td>
-          <td>Pasar Estadistica</td>
-          <td>Incompleto</td>
+          <td>{{todoo.id}}</td>
+          <td>{{todoo.name}}</td>
+          <td>{{todoo.state}}</td>
           <td>
-            <a href="{{ url_for('update',id = 1 ) }}">
-                <button type="button" class="btn btn-primary">Completar</button>
+            <a href="{{ url_for('update', id = todoo.id ) }}">
+                <button type="button" class="btn btn-success">Completar</button>
             </a>
-            <a href="{{ url_for('delete',id = 1) }}">
+            <a href="{{ url_for('delete', id = todoo.id) }}">
                 <button type="button" class="btn btn-danger">Eliminar</button>
             </a>
           </td>
         </tr>
+        {% endfor %}
     </table>
     </div>
 </body>
