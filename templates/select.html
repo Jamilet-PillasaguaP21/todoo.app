@@ -15,7 +15,7 @@
     <div class = "container">
         <form method="post">
             <input type="text" name="name">
-            <button type="button" class="btn btn-primary">Agregar Tarea</button>
+            <button type="submit" class="btn btn-primary">Agregar Tarea</button>
         </form>
     </div>
     <br>
@@ -35,7 +35,7 @@
           <td>{{todoo.state}}</td>
           <td>
             <a href="{{ url_for('update', id = todoo.id ) }}">
-                <button type="button" class="btn btn-success">Completar</button>
+                <button type="button" class="btn btn-success">Cambiar Estado</button>
             </a>
             <a href="{{ url_for('delete', id = todoo.id) }}">
                 <button type="button" class="btn btn-danger">Eliminar</button>

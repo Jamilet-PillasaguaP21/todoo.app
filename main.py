@@ -46,7 +46,10 @@ def insert():
 @app.route("/update/<id>")
 def update(id):
     obj = Todoo.query.filter_by(id=id).first()
-    obj.state = "Completo"
+    if obj.state == "Completo":
+        obj.state = "Incompleto"
+    else:
+        obj.state = "Completo"
     db.session.commit()
     return redirect(url_for('home'))
 
